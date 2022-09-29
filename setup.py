@@ -22,7 +22,7 @@ except ImportError:
 
 
 # Parse the version from the fiona module.
-with open("rio_color/__init__.py") as f:
+with open("rio_trend/__init__.py") as f:
     for line in f:
         if line.find("__version__") >= 0:
             version = line.split("=")[1].strip()
@@ -30,9 +30,7 @@ with open("rio_color/__init__.py") as f:
             version = version.strip("'")
             break
 
-long_description = """Color adjustment plugin for rasterio.
-
-See https://github.com/mapbox/rio-color for docs."""
+long_description = """"""
 
 
 def read(fname):
@@ -44,14 +42,14 @@ if cythonize and "clean" not in sys.argv:
     ext_modules = cythonize(
         [
             Extension(
-                "rio_color.colorspace",
-                ["rio_color/colorspace.pyx"],
+                "rio_trend.colorspace",
+                ["rio_trend/colorspace.pyx"],
                 extra_compile_args=["-O2"],
             )
         ]
     )
 else:
-    ext_modules = [Extension("rio_color.colorspace", ["rio_color/colorspace.c"])]
+    ext_modules = [Extension("rio_trend.colorspace", ["rio_trend/colorspace.c"])]
 
 inst_reqs = [
     "click>=4.0",
@@ -61,27 +59,17 @@ inst_reqs = [
 ]
 
 setup(
-    name="rio-color",
+    name="rio-trend",
     version=version,
-    description=u"Color correction plugin for rasterio",
+    description=u"",
     long_description=long_description,
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: MIT License",
-        "Programming Language :: Cython",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 3",
-        "Topic :: Multimedia :: Graphics :: Graphics Conversion",
         "Topic :: Scientific/Engineering :: GIS",
     ],
     keywords="",
-    author=u"Charlie Loyd",
-    author_email="charlie@mapbox.com",
-    url="https://github.com/mapbox/rio-color",
+    author=u"",
+    author_email="",
+    url="",
     license="BSD",
     packages=find_packages(exclude=["ez_setup", "examples", "tests"]),
     include_package_data=True,
@@ -89,10 +77,9 @@ setup(
     install_requires=inst_reqs,
     ext_modules=ext_modules,
     include_dirs=include_dirs,
-    extras_require={"test": ["pytest", "colormath==2.0.2", "pytest-cov", "codecov"]},
+    # extras_require={"test": ["pytest", "colormath==2.0.2", "pytest-cov", "codecov"]},
     entry_points="""
     [rasterio.rio_plugins]
-    color=rio_color.scripts.cli:color
-    atmos=rio_color.scripts.cli:atmos
+    trend=rio_trend.scripts.cli:trend
     """,
 )

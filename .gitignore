@@ -62,5 +62,6 @@ target/
 
 .*.swp
 
-rio_color/colorspace.html
+rio_trend/colorspace.html
 venv*
+.idea/*
