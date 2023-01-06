@@ -14,8 +14,8 @@ jobs_opt = click.option(
     "--jobs",
     "-j",
     type=int,
-    default=1,
-    help="Number of jobs to run simultaneously, Use -1 for all cores, default: 1",
+    default=4,
+    help="Number of jobs to run simultaneously, Use -1 for all cores, default: 4",
 )
 
 
@@ -27,6 +27,18 @@ def check_jobs(jobs):
         import multiprocessing
         jobs = multiprocessing.cpu_count()
     return jobs
+
+
+help_text = '''
+exception: -9999
+
++──────────+──────────+──────────+──────────+
+|          | slope<0  | slope=0  | slope>0  |
++──────────+──────────+──────────+──────────+
+| p<=0.05  | -1       | 0        | +1       |
+| p>0.05   | -2       | 0        | +2       |
++──────────+──────────+──────────+──────────+
+'''
 
 
 @click.command("trend")
@@ -75,9 +87,10 @@ def trend(ctx, jobs, out_dtype, src_path, dst_path, creation_options):
     except ValueError as e:
         raise click.UsageError(str(e))
 
-    jobs = check_jobs(jobs)
+    print(help_text)
 
-    print(jobs)
+    jobs = check_jobs(jobs)
+    print('jobs = ', jobs)
 
     if jobs > 1:
         with riomucho.RioMucho(

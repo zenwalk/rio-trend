@@ -1,4 +1,5 @@
 click~=8.0
 rasterio~=1.0
 rio-mucho
+pymannkendall
 enum34; python_version < "3.4"
